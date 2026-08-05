@@ -21,6 +21,9 @@ export const check = async (loaded: LoadedCfg): Promise<void> => {
     if (!page.route.startsWith("/")) throw new Error(`Route must start with /: ${page.route}`);
     if (page.route.includes("..")) throw new Error(`Route cannot contain ..: ${page.route}`);
     if (routes.has(page.route)) throw new Error(`Duplicate route: ${page.route}`);
+    if (page.baseHref !== undefined && !page.baseHref.trim()) {
+      throw new Error(`Page baseHref cannot be empty: ${page.route}`);
+    }
 
     const output = routeFile(page.route);
     if (outputs.has(output)) throw new Error(`Routes share an output file: ${output}`);

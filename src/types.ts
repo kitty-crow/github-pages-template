@@ -61,6 +61,7 @@ export interface PageCfg {
   readonly inject?: boolean;
   readonly keepSource?: boolean;
   readonly legacy?: readonly string[];
+  readonly baseHref?: string;
 }
 
 export interface CopyCfg {

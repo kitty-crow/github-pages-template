@@ -20,6 +20,16 @@ export const inject = (html: string, tags: Tags): string => {
   return out;
 };
 
+export const setBase = (html: string, href: string): string => {
+  const tag = `<base href="${escapeAttr(href)}">`;
+  const existing = /<base\b[^>]*>/i;
+  if (existing.test(html)) return html.replace(existing, tag);
+
+  const head = /<head(?:\s[^>]*)?>/i;
+  if (!head.test(html)) throw new Error("HTML is missing <head>.");
+  return html.replace(head, match => `${match}\n  ${tag}`);
+};
+
 export const redirect = (target: string): string => `<!doctype html>
 <html lang="en-GB">
 <head>
