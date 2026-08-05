@@ -54,8 +54,10 @@ export const initReadme = async (cfg?: ReadmeCfg): Promise<void> => {
     rewrite(content, blobBase, rawBase, repo);
     content.querySelectorAll<HTMLElement>("pre code").forEach(node => libs.highlight.highlightElement(node));
     status.textContent = "README loaded.";
+    status.hidden = true;
   } catch (error) {
     status.textContent = error instanceof Error ? error.message : String(error);
+    status.hidden = false;
     const paragraph = document.createElement("p");
     paragraph.append("Open the README in the ");
     const link = document.createElement("a");
