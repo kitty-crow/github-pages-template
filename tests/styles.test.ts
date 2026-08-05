@@ -19,3 +19,12 @@ test("keeps shared CSS separated and nested", async () => {
   expect(nav).toContain("& a");
   expect(nav).toContain("&:hover");
 });
+
+test("isolates the Ko-fi footer icon from project link styles", async () => {
+  const kofi = await Bun.file(join(root, "web", "styles", "kofi.css")).text();
+  expect(kofi).toContain(".pages-kofi-link");
+  expect(kofi).toContain("&::before");
+  expect(kofi).toContain("content: none !important");
+  expect(kofi).toContain("width: 1.05rem !important");
+  expect(kofi).toContain("max-height: 1.05rem !important");
+});
