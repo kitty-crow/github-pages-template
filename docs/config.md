@@ -20,7 +20,8 @@ pages: [
   {
     from: "about.html",
     route: "/about/",
-    legacy: ["about.html"]
+    legacy: ["about.html"],
+    baseHref: "../"
   }
 ]
 ```
@@ -28,6 +29,8 @@ pages: [
 `route` controls the output path. `/about/` becomes `about/index.html`. A route ending in `.html` remains a file.
 
 `legacy` creates redirect files for old URLs. `keepSource` retains the copied source file when its output route differs. `inject: false` disables runtime and shared-style injection for one page.
+
+`baseHref` inserts or replaces the page's `<base href>` before other head content. It is useful when the same authored page is emitted both as a root `.html` file and as a clean nested route.
 
 Use these markers to control injection position:
 

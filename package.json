@@ -1,6 +1,6 @@
 {
   "name": "@kitty-crow/github-pages-template",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Unbranded GitHub Pages build, runtime and component foundation.",
   "type": "module",
   "license": "MIT",
