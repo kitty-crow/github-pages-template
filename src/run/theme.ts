@@ -22,6 +22,11 @@ export const initTheme = (cfg?: ThemeCfg): void => {
     if (stored(cfg)) return;
     apply(cfg, preferred());
   });
+
+  addEventListener("storage", event => {
+    if (event.key !== cfg.key) return;
+    apply(cfg, active(cfg));
+  });
 };
 
 const preferred = (): Theme => media.matches ? "dark" : "light";
