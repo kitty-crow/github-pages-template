@@ -23,7 +23,7 @@ export const initTheme = (cfg?: ThemeCfg): void => {
     apply(cfg, preferred());
   });
 
-  addEventListener("storage", event => {
+  window.addEventListener("storage", (event: StorageEvent) => {
     if (event.key !== cfg.key) return;
     apply(cfg, active(cfg));
   });
