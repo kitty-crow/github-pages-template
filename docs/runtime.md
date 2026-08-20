@@ -41,7 +41,7 @@ version: {
 }
 ```
 
-The file is resolved from `runtime.base`, so nested clean routes read the same source.
+The version file is resolved from `runtime.base` first. If that path is unavailable, the runtime retries from the current document base. This keeps nested clean routes deterministic while allowing the same generated site to survive repository renames and compatible reverse-proxy mounts without silently losing its version display.
 
 ## README
 
