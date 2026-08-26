@@ -2,6 +2,7 @@ import { expect, test } from "bun:test";
 import { join } from "node:path";
 import { build } from "../src/build.ts";
 import { load } from "../src/config.ts";
+import { mobileViewportTag } from "../src/mobile.ts";
 
 const root = join(import.meta.dir, "..");
 
@@ -23,7 +24,9 @@ test("builds the neutral example", async () => {
   const home = await Bun.file(join(out, "index.html")).text();
   expect(home).toContain("assets/pages/boot.js");
   expect(home).toContain("assets/pages/runtime.js");
+  expect(home).toContain(mobileViewportTag);
 
   const legacy = await Bun.file(join(out, "about.html")).text();
   expect(legacy).toContain("/about/");
+  expect(legacy).toContain(mobileViewportTag);
 });
