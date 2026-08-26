@@ -33,6 +33,13 @@ jobs:
         run: bun __TEMPLATE__/src/cli.ts check pages.config.ts
       - name: Build
         run: bun __TEMPLATE__/src/cli.ts build pages.config.ts
+      - name: Install mobile audit browser
+        run: |
+          cd "__TEMPLATE__"
+          bun install
+          bunx playwright install --with-deps chromium
+      - name: Audit mobile responsiveness
+        run: bun __TEMPLATE__/src/cli.ts audit-mobile site
       - name: Set up Pages
         uses: actions/configure-pages@v5
       - name: Upload site
