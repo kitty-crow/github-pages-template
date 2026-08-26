@@ -106,7 +106,7 @@ const settle = async (page: Page): Promise<void> => {
   await page.waitForTimeout(150);
 };
 
-const inspect = async (page: Page): Promise<LayoutResult> => await page.evaluate(expectedViewport => {
+const inspect = async (page: Page): Promise<LayoutResult> => await page.evaluate(() => {
   const html = document.documentElement;
   const body = document.body;
   const viewport = window.innerWidth;
@@ -170,10 +170,7 @@ const inspect = async (page: Page): Promise<LayoutResult> => await page.evaluate
   const rootCanScroll = Math.abs(window.scrollX) > tolerance;
   window.scrollTo(0, y);
 
-  return { viewport, documentWidth, meta, rootMasks, rootCanScroll, offenders, fixedOffenders, expectedViewport } as LayoutResult & { expectedViewport: string };
-}, mobileViewport).then(result => {
-  const { expectedViewport: _ignored, ...layout } = result as LayoutResult & { readonly expectedViewport?: string };
-  return layout;
+  return { viewport, documentWidth, meta, rootMasks, rootCanScroll, offenders, fixedOffenders };
 });
 
 const messages = (file: string, phase: string, result: LayoutResult): readonly string[] => {
