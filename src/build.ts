@@ -2,6 +2,7 @@ import { cp, mkdir, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { dirname, join, posix, resolve } from "node:path";
 import { check } from "./check.ts";
 import { inject, redirect, setBase } from "./html.ts";
+import { setMobileViewport } from "./mobile.ts";
 import { href, relImport, routeFile, slash } from "./path.ts";
 import type { BuildResult, LoadedCfg } from "./types.ts";
 
@@ -39,7 +40,7 @@ export const build = async (loaded: LoadedCfg): Promise<BuildResult> => {
     const target = routeFile(page.route);
     const sourceFile = join(source, page.from);
     const targetFile = join(out, target);
-    let html = await readFile(sourceFile, "utf8");
+    let html = setMobileViewport(await readFile(sourceFile, "utf8"));
 
     if (page.baseHref !== undefined) html = setBase(html, page.baseHref);
 

@@ -1,6 +1,10 @@
 name: Check
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -22,3 +26,7 @@ jobs:
         run: bun run check
       - name: Build example
         run: bun run example:build
+      - name: Install Chromium
+        run: bunx playwright install --with-deps chromium
+      - name: Audit mobile responsiveness
+        run: bun run example:audit-mobile

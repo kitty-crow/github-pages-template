@@ -1,3 +1,5 @@
+import { mobileViewportTag } from "./mobile.ts";
+
 const headMark = "<!-- pages:head -->";
 const bodyMark = "<!-- pages:body -->";
 
@@ -34,7 +36,7 @@ export const redirect = (target: string): string => `<!doctype html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  ${mobileViewportTag}
   <meta http-equiv="refresh" content="0; url=${escapeAttr(target)}">
   <link rel="canonical" href="${escapeAttr(target)}">
   <title>Redirecting…</title>
