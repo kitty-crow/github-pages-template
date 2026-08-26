@@ -1,5 +1,6 @@
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
+import { assertMobileViewport } from "./mobile.ts";
 import type { LoadedCfg } from "./types.ts";
 import { routeFile } from "./path.ts";
 
@@ -30,7 +31,9 @@ export const check = async (loaded: LoadedCfg): Promise<void> => {
 
     routes.add(page.route);
     outputs.add(output);
-    await requirePath(join(source, page.from), `page source ${page.from}`);
+    const pageSource = join(source, page.from);
+    await requirePath(pageSource, `page source ${page.from}`);
+    assertMobileViewport(await readFile(pageSource, "utf8"), `Page source ${page.from}`);
 
     for (const legacy of page.legacy ?? []) {
       if (legacy.startsWith("/") || legacy.includes("..")) throw new Error(`Legacy path must be output-relative: ${legacy}`);
