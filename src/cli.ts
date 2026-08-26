@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { build } from "./build.ts";
 import { check } from "./check.ts";
 import { load } from "./config.ts";
+import { auditMobile } from "./mobileAudit.ts";
 import { init } from "./scaffold.ts";
 import { version, type Bump } from "./ver.ts";
 
@@ -11,6 +12,7 @@ const help = `GitHub Pages template
 Usage:
   pages-template build [config]
   pages-template check [config]
+  pages-template audit-mobile [site-dir]
   pages-template init <dir> --name <name> --repo <owner/repo> [--base </repo/>] [--kofi <user>] [--force]
   pages-template version <check|patch|minor|major> [--root <dir>] [--package <file>] [--file <file>]
 
@@ -35,6 +37,12 @@ if (command === "check") {
   const loaded = await load(args[0] ?? "pages.config.ts");
   await check(loaded);
   console.log("Pages configuration is valid.");
+  process.exit(0);
+}
+
+if (command === "audit-mobile") {
+  await auditMobile(args[0] ?? "site");
+  console.log("Mobile responsiveness audit passed.");
   process.exit(0);
 }
 
